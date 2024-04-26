@@ -3,7 +3,10 @@ package pro.sky.domRab2_8;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeService implements EmployeeInterface {
@@ -40,22 +43,30 @@ public class EmployeeService implements EmployeeInterface {
 
     @Override
     public Employee employeeSalaryMax(int depart) {
-        return null;
+        return employeeBook.stream()
+                .filter(employee -> employee.getDepartEmployee()==depart)
+                .max(Comparator.comparing(Employee::getSalaryEmployee))
+                .orElseThrow();
     }
 
     @Override
     public Employee employeeSalaryMin(int depart) {
-        return null;
+        return employeeBook.stream()
+                .filter(employee -> employee.getDepartEmployee()==depart)
+                .min(Comparator.comparing(Employee::getSalaryEmployee))
+                .orElseThrow();
     }
 
     @Override
-    public Employee employeesDepart(int depart) {
-        return null;
+    public List<Employee> employeesDepart(int depart) {
+        return employeeBook.stream()
+                .filter(employee -> employee.getDepartEmployee()==depart).toList();
     }
 
     @Override
-    public Employee employeesDepart() {
-        return null;
+    public Map<Integer,List<Employee>> employeesDepartAll() {
+        return employeeBook.stream()
+                .collect(Collectors.groupingBy(Employee::getDepartEmployee));
     }
 
 }
