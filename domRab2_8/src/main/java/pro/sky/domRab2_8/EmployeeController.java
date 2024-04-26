@@ -6,10 +6,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
-@RequestMapping("/departments")
+@RequestMapping(path = "/departments")
 public class EmployeeController {
     private final EmployeeInterface employeeInterface;
 
@@ -17,30 +18,29 @@ public class EmployeeController {
         this.employeeInterface = employeeInterface;
     }
 
-    @GetMapping("/max-salary")
+    @GetMapping(path = "/max-salary")
     // /departments/max-salary?departmentId=5
     public Employee employeeSalaryMax(@RequestParam("departmentId") int depart) {
         return employeeInterface.employeeSalaryMax(depart);
     }
-    @GetMapping("/min-salary")
+
+    @GetMapping(path = "/min-salary")
     // /departments/max-salary?departmentId=5
     public Employee employeeSalaryMin(@RequestParam("departmentId") int depart) {
         return employeeInterface.employeeSalaryMin(depart);
     }
 
-    @GetMapping("/all")
+    @GetMapping(path = "/all-for-departs")
     // /departments/max-salary?departmentId=5
-    public Employee employeesDepart(@RequestParam("departmentId") int depart) {
+    public List<Employee> employeesDepart(@RequestParam("departmentId") int depart) {
         return employeeInterface.employeesDepart(depart);
     }
 
-    @GetMapping("/all")
+    @GetMapping(path = "/all")
     // /departments/max-salary?departmentId=5
-    public Employee employeesDepart() {
-        return employeeInterface.employeesDepart();
+    public Map<Integer, List<Employee>> employeesDepart() {
+        return employeeInterface.employeesDepartAll();
     }
-
-
 
 
 }
