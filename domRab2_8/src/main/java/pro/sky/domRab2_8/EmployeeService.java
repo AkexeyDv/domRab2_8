@@ -44,7 +44,7 @@ public class EmployeeService implements EmployeeInterface {
     @Override
     public Employee employeeSalaryMax(int depart) {
         return employeeBook.stream()
-                .filter(employee -> employee.getDepartEmployee()==depart)
+                .filter(employee -> employee.getDepartEmployee() == depart)
                 .max(Comparator.comparing(Employee::getSalaryEmployee))
                 .orElseThrow();
     }
@@ -52,7 +52,7 @@ public class EmployeeService implements EmployeeInterface {
     @Override
     public Employee employeeSalaryMin(int depart) {
         return employeeBook.stream()
-                .filter(employee -> employee.getDepartEmployee()==depart)
+                .filter(employee -> employee.getDepartEmployee() == depart)
                 .min(Comparator.comparing(Employee::getSalaryEmployee))
                 .orElseThrow();
     }
@@ -60,11 +60,11 @@ public class EmployeeService implements EmployeeInterface {
     @Override
     public List<Employee> employeesDepart(int depart) {
         return employeeBook.stream()
-                .filter(employee -> employee.getDepartEmployee()==depart).toList();
+                .filter(employee -> employee.getDepartEmployee() == depart).toList();
     }
 
     @Override
-    public Map<Integer,List<Employee>> employeesDepartAll() {
+    public Map<Integer, List<Employee>> employeesDepartAll() {
         return employeeBook.stream()
                 .collect(Collectors.groupingBy(Employee::getDepartEmployee));
     }

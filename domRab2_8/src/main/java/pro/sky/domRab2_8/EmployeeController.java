@@ -23,6 +23,7 @@ public class EmployeeController {
     public Employee employeeSalaryMax(@RequestParam("departmentId") int depart) {
         return employeeInterface.employeeSalaryMax(depart);
     }
+
     @GetMapping(path = "/min-salary")
     // /departments/max-salary?departmentId=5
     public Employee employeeSalaryMin(@RequestParam("departmentId") int depart) {
@@ -31,17 +32,15 @@ public class EmployeeController {
 
     @GetMapping(path = "/all-for-departs")
     // /departments/max-salary?departmentId=5
-    public  List<Employee> employeesDepart(@RequestParam("departmentId") int depart) {
+    public List<Employee> employeesDepart(@RequestParam("departmentId") int depart) {
         return employeeInterface.employeesDepart(depart);
     }
 
     @GetMapping(path = "/all")
     // /departments/max-salary?departmentId=5
-    public Map<Integer,List<Employee>> employeesDepart() {
+    public Map<Integer, List<Employee>> employeesDepart() {
         return employeeInterface.employeesDepartAll();
     }
-
-
 
 
 }
