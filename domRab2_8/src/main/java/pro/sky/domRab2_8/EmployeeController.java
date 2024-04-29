@@ -10,36 +10,54 @@ import java.util.Map;
 
 
 @RestController
-@RequestMapping(path = "/departments")
+//@RequestMapping(path = "/departments")
 public class EmployeeController {
     private final EmployeeInterface employeeInterface;
+    private final DepartamentInterface departamentInterface;
 
-    public EmployeeController(EmployeeInterface employeeInterface) {
+    public EmployeeController(EmployeeInterface employeeInterface,
+                              DepartamentInterface departamentInterface) {
         this.employeeInterface = employeeInterface;
+        this.departamentInterface = departamentInterface;
     }
 
-    @GetMapping(path = "/max-salary")
+    @GetMapping(path = "/departments/max-salary")
     // /departments/max-salary?departmentId=5
     public Employee employeeSalaryMax(@RequestParam("departmentId") int depart) {
         return employeeInterface.employeeSalaryMax(depart);
     }
 
-    @GetMapping(path = "/min-salary")
+    @GetMapping(path = "/departments/min-salary")
     // /departments/max-salary?departmentId=5
     public Employee employeeSalaryMin(@RequestParam("departmentId") int depart) {
         return employeeInterface.employeeSalaryMin(depart);
     }
 
-    @GetMapping(path = "/all-for-departs")
+    @GetMapping(path = "/departments/all-for-departs")
     // /departments/max-salary?departmentId=5
     public List<Employee> employeesDepart(@RequestParam("departmentId") int depart) {
         return employeeInterface.employeesDepart(depart);
     }
 
-    @GetMapping(path = "/all")
+    @GetMapping(path = "/departments/all")
     // /departments/max-salary?departmentId=5
     public Map<Integer, List<Employee>> employeesDepart() {
         return employeeInterface.employeesDepartAll();
+    }
+
+    @GetMapping(path = "/departments/add")
+    public String addDepart(@RequestParam("departNum") int numDepart, @RequestParam("departName") String nameDepart) {
+        return departamentInterface.addDepart(numDepart, nameDepart);
+    }
+
+    //@RequestMapping(path = "/employees")
+    @GetMapping(path = "employees/add")
+    public String addEmployee(@RequestParam("lastName") String lastName,
+                              @RequestParam("name") String name,
+                              @RequestParam("surName") String surname,
+                              @RequestParam("depart") int depart,
+                              @RequestParam("salary") float salary) {
+        return employeeInterface.addEmployee(departamentInterface.getDepartamentList(), lastName, name, surname, depart, salary).toString();
     }
 
 

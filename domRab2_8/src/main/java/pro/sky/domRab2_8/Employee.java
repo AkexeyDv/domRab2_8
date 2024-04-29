@@ -1,5 +1,7 @@
 package pro.sky.domRab2_8;
 
+import java.util.Objects;
+
 public class Employee {
     private String lastNameEmployee;
     private String nameEmployee;
@@ -44,4 +46,16 @@ public class Employee {
         return departEmployee;
     }
 
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        Employee employee = (Employee) object;
+        return Objects.equals(lastNameEmployee, employee.lastNameEmployee) && Objects.equals(nameEmployee, employee.nameEmployee) && Objects.equals(surnameEmployee, employee.surnameEmployee);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(lastNameEmployee, nameEmployee, surnameEmployee);
+    }
 }
