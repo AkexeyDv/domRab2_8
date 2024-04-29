@@ -14,7 +14,7 @@ public class DepartamentService implements DepartamentInterface {
             new Departament(4, "Транспортный"),
             new Departament(5, "ОТК")
     ));
-
+    @Override
     public String addDepart(int nemDepart, String name) {
         Departament newDepart = new Departament(nemDepart, name);
         departamentList.add(newDepart);
