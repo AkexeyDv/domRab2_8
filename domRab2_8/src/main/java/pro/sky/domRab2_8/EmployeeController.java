@@ -1,7 +1,6 @@
 package pro.sky.domRab2_8;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -10,7 +9,6 @@ import java.util.Map;
 
 
 @RestController
-//@RequestMapping(path = "/departments")
 public class EmployeeController {
     private final EmployeeInterface employeeInterface;
     private final DepartamentInterface departamentInterface;
@@ -34,8 +32,8 @@ public class EmployeeController {
     }
 
     @GetMapping(path = "/departments/all-for-departs")
-    // /departments/max-salary?departmentId=5
     public List<Employee> employeesDepart(@RequestParam("departmentId") int depart) {
+
         return employeeInterface.employeesDepart(depart);
     }
 
@@ -50,7 +48,6 @@ public class EmployeeController {
         return departamentInterface.addDepart(numDepart, nameDepart);
     }
 
-    //@RequestMapping(path = "/employees")
     @GetMapping(path = "employees/add")
     public String addEmployee(@RequestParam("lastName") String lastName,
                               @RequestParam("name") String name,

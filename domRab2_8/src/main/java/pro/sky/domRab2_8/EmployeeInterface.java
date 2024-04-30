@@ -13,10 +13,11 @@ public interface EmployeeInterface {
 
     Map<Integer, List<Employee>> employeesDepartAll();
 
-    public Employee addEmployee(List<Departament> departament,
-                                String lastName,
-                                String name,
-                                String surName,
-                                int depart,
-                                float salary);
+    Employee addEmployee(List<Departament> departament,
+                         String lastName,
+                         String name,
+                         String surName,
+                         int depart,
+                         float salary);
 }
+

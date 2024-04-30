@@ -1,15 +1,19 @@
 package pro.sky.domRab2_8;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
 public class EmployeeService implements EmployeeInterface {
 
 
-    private List<Employee> employeeBook = new ArrayList<>(List.of(
+    private final List<Employee> employeeBook = new ArrayList<>(List.of(
             new Employee("Иванов", "Степан", "Никифорович",
                     1, 120000),
             new Employee("Куликов", "Михаил", "Лефонтович",
@@ -25,7 +29,7 @@ public class EmployeeService implements EmployeeInterface {
             new Employee("Распутин", "Емельян", "Давидович",
                     1, 125000)
     ));
-    private Validator employeeCheck = new Validator("Ошибка");
+    private final Validator employeeCheck = new Validator("Ошибка");
 
     @Override
     public String toString() {
@@ -66,9 +70,11 @@ public class EmployeeService implements EmployeeInterface {
                                 String surName,
                                 int depart,
                                 float salary) {
+        String fullName = StringUtils.capitalize(lastName) +
+                StringUtils.capitalize(StringUtils.deleteWhitespace(name)) +
+                StringUtils.capitalize(surName);
         try {
-            employeeCheck.checkAddEmployeeSign(employeeBook,
-                    lastName + name + surName);
+            employeeCheck.checkAddEmployeeSign(employeeBook, fullName);
         } catch (EmployeeException e) {
             throw new RuntimeException("Пользователь с такими данными уже существует");
         }
@@ -77,7 +83,15 @@ public class EmployeeService implements EmployeeInterface {
         } catch (EmployeeException e) {
             throw new RuntimeException("Такого отдела нет");
         }
-        Employee newEmployee = new Employee(lastName, name, surName, depart, salary);
+        try {
+            employeeCheck.checkNameEmployeeNonAlfa(lastName + name + surName);
+        } catch (EmployeeException e) {
+            throw new RuntimeException("Символы в данных пользователя не буквы");
+        }
+        Employee newEmployee = new Employee(StringUtils.capitalize(lastName),
+                StringUtils.capitalize(StringUtils.deleteWhitespace(name)),
+                StringUtils.capitalize(surName),
+                depart, salary);
         employeeBook.add(newEmployee);
         return newEmployee;
     }
