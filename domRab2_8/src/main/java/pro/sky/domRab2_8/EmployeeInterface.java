@@ -1,14 +1,23 @@
 package pro.sky.domRab2_8;
 
 import java.util.List;
+import java.util.Map;
 
-public interface EmployeeInterface  {
+public interface EmployeeInterface {
 
     Employee employeeSalaryMax(int depart);
 
     Employee employeeSalaryMin(int depart);
 
-    Employee employeesDepart(int depart);
+    List<Employee> employeesDepart(int depart);
 
-    Employee employeesDepart();
+    Map<Integer, List<Employee>> employeesDepartAll();
+
+    Employee addEmployee(List<Departament> departament,
+                         String lastName,
+                         String name,
+                         String surName,
+                         int depart,
+                         float salary);
 }
+
